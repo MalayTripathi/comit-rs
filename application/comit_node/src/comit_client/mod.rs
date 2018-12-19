@@ -6,7 +6,7 @@ use futures::Future;
 use std::{io, net::SocketAddr, sync::Arc};
 
 use crate::swap_protocols::{self, asset::Asset};
-use std::{fmt::Debug, panic::RefUnwindSafe};
+use std::fmt::Debug;
 
 pub trait Client: Send + Sync + 'static {
     fn send_swap_request<
@@ -25,7 +25,7 @@ pub trait Client: Send + Sync + 'static {
     >;
 }
 
-pub trait ClientFactory<C>: Send + Sync + RefUnwindSafe + Debug {
+pub trait ClientFactory<C>: Send + Sync + Debug {
     fn client_for(&self, comit_node_socket_addr: SocketAddr) -> Result<Arc<C>, ClientFactoryError>;
 }
 
