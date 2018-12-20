@@ -10,11 +10,8 @@ use crate::{
         asset::Asset,
         ledger::{Bitcoin, Ethereum},
         rfc003::{
-            self,
-            actions::{ActionKind, Actions},
-            alice::SwapRequestIdentities,
-            state_store::StateStore,
-            Ledger, SecretSource,
+            self, actions::Actions, alice::SwapRequestIdentities, state_store::StateStore, Ledger,
+            SecretSource,
         },
         AssetKind, LedgerKind, Metadata, MetadataStore, RoleKind, SwapId,
     },
@@ -294,7 +291,8 @@ fn handle_get_swap<T: MetadataStore<SwapId>, S: StateStore<SwapId>>(
 
             let start_state = state.start_state()?;
 
-            let actions: Vec<ActionName> = state.actions().iter().map(ActionKind::name).collect();
+            let actions: Vec<ActionName> =
+                state.actions().iter().map(|action| action.name()).collect();
             (Ok((
                 GetSwapResource {
                     state: state.name(),
